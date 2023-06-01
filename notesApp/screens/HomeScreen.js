@@ -46,7 +46,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 20,
-    elevation: 7,
+     elevation: 7,
+     //The next 4 lines only work on IOS
+     shadowOffset:{with: 2, height: 10},
+     shadowColor: 'black',
+     shadowOpacity: 0.4,
+     shadowRadius: 2,
   },
   tittle:{
     fontSize: 25,
