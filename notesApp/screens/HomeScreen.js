@@ -1,11 +1,12 @@
 import { Dimensions, Platform, Pressable, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import Icon from "react-native-vector-icons/Ionicons" 
+import { ScreenType } from '../constants/Constants'
 
-const HomeScreen = () => {
+const HomeScreen = ({onExit}) => {
   return (
     <View style = {styles.container}>
-        <Pressable>
+        <Pressable onPress={() => onExit(ScreenType.addNote)}>
         <View  style ={styles.itemButton}>
             
             <Text style={styles.tittle}>Add New Note</Text>
@@ -15,7 +16,7 @@ const HomeScreen = () => {
         </View>
         </Pressable>
       
-        <Pressable>
+        <Pressable onPress={()=> onExit(ScreenType.allNotes)}>
         <View  style ={styles.itemButton}>
 
             <Text style={styles.tittle}>View Notes</Text>
@@ -57,7 +58,7 @@ const styles = StyleSheet.create({
     fontSize: 25,
     fontWeight: 'bold',
     textAlign: 'center',
-    fontFamily: 'Cursive'
+     
 
   },
   icon:{
