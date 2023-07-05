@@ -7,29 +7,39 @@ import AddNotes from './screens/AddNotes';
 import { ScreenType } from './constants/Constants';
 import { useState } from 'react';
 import BackButton from './components/BackButton';
+import { validate } from 'react-native-web/dist/cjs/exports/StyleSheet/validate';
 
 export default function App() {
   const [screen, setScreen] = useState(ScreenType.home);
-  
+  const [notes, setNotes] = useState([]);
+  const updateScreen = (data) => {
+    setScreen(data)
+  }
+
   let content;
-  if(screen===ScreenType.addNote){
-    content = <AddNotes/>;
+  if(screen === ScreenType.addNote){
+    content = (
+    <AddNotes 
+    onExit={updateScreen}
+    onSave={(data)=> setNotes([...notes,{id:Date.now(), note:data}])}/>
+    );
   } 
   else if(screen===ScreenType.allNotes){
-    content = <AllNotesScreen/>;
+    content = <AllNotesScreen notes={notes}/>;
   }
   else if (screen === ScreenType.home){
-    content = (<HomeScreen onExit = { (data) => {
-      setScreen(data);
-    }}
-    />
-    );
+    content = <HomeScreen onExit = {updateScreen} />;
+
   }
+
+console.log(notes);
 
   return (
     <View style={styles.container}>
       <Header />
-      <BackButton onButtonClick={(data) => setScreen(data)}/>
+      {screen !== ScreenType.home && ( 
+      <BackButton onButtonClick={updateScreen}/>
+      )}
     {content}
     </View>
   );
